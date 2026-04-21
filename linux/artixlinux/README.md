@@ -45,6 +45,16 @@ sudo pacman -Syu
 ```
 Reboot if needed to make sure we're not broken already.
 
+To automate this process next time, we can create a script that will automatically create a timeshift snapshot, update all pacman and AUR packages as well as flatpaks too
+```
+sudo timeshift --create --comments "Pre-update backup" --scripted   
+sudo yay
+sudo yay -Yc
+sudo yay -Scc
+sudo flatpak update
+```
+Obviously this will require `timeshift`, `yay` and `flatpak` to already be installed.
+
 ### Installing needed packages for getting your OS up and running
 
 Install base-devel (a group of packages needed in Arch Linux) and git (needed to clone packages from https://aur.archlinux.org/)
