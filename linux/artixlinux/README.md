@@ -284,6 +284,7 @@ flatpak install flathub com.heroicgameslauncher.hgl -y
 flatpak install flathub com.vysp3r.ProtonPlus -y
 flatpak install flathub com.github.Matoking.protontricks -y
 flatpak install flathub org.qbittorrent.qBittorrent -y
+flatpak install flathub org.gnome.gitlab.YaLTeR.VideoTrimmer -y
 ```
 
 ### Installing Vistathemeplasma
