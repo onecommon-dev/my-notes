@@ -184,11 +184,11 @@ sudo nano /etc/init.d/input-remapper-openrc
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-description="Daemon for key-mapper-service"
+description="Daemon for input-remapper-service"
 start() {
-    ebegin "key-mapper service"
-    start-stop-daemon --background --start --exec /usr/bin/key-mapper-service \
-    --make-pidfile --pidfile /run/key-mapper.pid
+    ebegin "input-remapper service"
+    start-stop-daemon --background --start --exec /usr/bin/input-remapper-service \
+    --make-pidfile --pidfile /run/input-remapper-service.pid
     eend $?
 }
 #notice the bash like escape to use newlines
