@@ -354,7 +354,7 @@ sudo ./install.sh
 
 After installing gadgets, we should be able to add them to the desktop using KDE's Add or Manage Widgets menu (by right-clicking the taskbar)
 
-## Fixing common issues
+## Tips, tricks and fixing common issues
 
 ### Wrong fs type, bad option, bad superblock
 
@@ -369,4 +369,14 @@ ntfsfix -d /dev/sdd1
 For exfat, run this command to scan for errors and unset the dirty flag
 ```
 sudo fsck.exfat /dev/sdd1
+```
+
+### Set mpv to always loop infinitely
+
+Artix comes with `mpv` as the video player by default. However, the player closes immediately as playback reaches the end of the file. To make it loop instead of closing, we create a config file like so
+```
+nano ~/.config/mpv/mpv.conf
+```
+```
+loop-file=inf
 ```
