@@ -202,6 +202,20 @@ sudo rc-update add input-remapper-openrc default
 sudo rc-service input-remapper-openrc start
 ```
 
+With this service running, we can do something cool like auto-starting and stopping an input remapper profile upon starting a game with a script embedded in a .desktop shortcut, like so
+```
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Type=Application
+Name=My Example Game
+Icon=path/to/icon
+Exec=bash -c 'sudo input-remapper-control --command start --device "Keychron Keychron K1" --preset "MyPreset"; env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/1; sudo input-remapper-control --command stop --device "Keychron Keychron K1";
+Terminal=true
+Categories=Game
+TryExec=lutris
+```
+
 ### Installing LACT
 
 I use [LACT](https://github.com/ilya-zlobintsev/LACT) to set power limit for my AMD Instinct MI50. It can be installed with
