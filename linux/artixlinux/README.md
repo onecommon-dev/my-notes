@@ -371,7 +371,7 @@ For exfat, run this command to scan for errors and unset the dirty flag
 sudo fsck.exfat /dev/sdd1
 ```
 
-### Set mpv to always loop infinitely
+### Configure mpv
 
 Artix comes with `mpv` as the video player by default. However, the player closes immediately as playback reaches the end of the file. To make it loop instead of closing, we create a config file like so
 ```
@@ -380,3 +380,12 @@ nano ~/.config/mpv/mpv.conf
 ```
 loop-file=inf
 ```
+
+To add a keyboard shortcut to rotate the video, we create another config file
+```
+nano ~/.config/mpv/input.conf
+```
+```
+r cycle_values video-rotate "90" "180" "270" "0"
+```
+This would make the `r` key rotate the video 90 degrees at a time.
