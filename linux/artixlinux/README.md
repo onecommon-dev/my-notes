@@ -143,9 +143,10 @@ Make the service runs on boot, then optionally start it immediately if we don't 
 sudo rc-update add grub-btrfsd default
 sudo rc-service grub-btrfsd start
 ```
-We'll need to run `grub-btrfs` at least once initially to setup `grub`
+We should run the below commands manually once initially to setup `grub` with any snapshots that we created with `timeshift` prior to installing `grub-btrfs`
 ```
-grub-btrfs
+sudo /etc/grub.d/41_snapshots-btrfs
+grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### Installing Steam
@@ -226,20 +227,20 @@ sudo pacman -S flatpak
 
 Then install [Warehouse](https://flathub.org/en/apps/io.github.flattool.Warehouse) to manage flatpaks with a GUI. [Bazaar](https://flathub.org/en/apps/io.github.kolunmi.Bazaar) has better UX, but at this point [it requires systemd](https://github.com/bazaar-org/bazaar/issues/1298).
 ```
-flatpak install flathub io.github.flattool.Warehouse
+flatpak install flathub io.github.flattool.Warehouse -y
 ```
 
 Here are some other flatpaks that I use:
 ```
-flatpak install flathub com.brave.Browser
-flatpak install flathub net.lutris.Lutris
-flatpak install flathub chat.delta.desktop
-flatpak install flathub com.github.tchx84.Flatseal
-flatpak install flathub it.mijorus.gearlever
-flatpak install flathub com.heroicgameslauncher.hgl
-flatpak install flathub com.vysp3r.ProtonPlus
-flatpak install flathub com.github.Matoking.protontricks
-flatpak install flathub org.qbittorrent.qBittorrent
+flatpak install flathub com.brave.Browser -y
+flatpak install flathub net.lutris.Lutris -y
+flatpak install flathub chat.delta.desktop -y
+flatpak install flathub com.github.tchx84.Flatseal -y
+flatpak install flathub it.mijorus.gearlever -y
+flatpak install flathub com.heroicgameslauncher.hgl -y
+flatpak install flathub com.vysp3r.ProtonPlus -y
+flatpak install flathub com.github.Matoking.protontricks -y
+flatpak install flathub org.qbittorrent.qBittorrent -y
 ```
 
 ### Installing Vistathemeplasma
