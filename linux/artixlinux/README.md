@@ -29,6 +29,7 @@ depend() {
 
 Making it start at boot, then manually start it now
 ```
+sudo chmod +x /etc/init.d/grub-btrfsd
 sudo rc-update add grub-btrfsd default
 sudo rc-service grub-btrfsd start
 ```
@@ -140,6 +141,7 @@ depend() {
 ```
 Make the service runs on boot, then optionally start it immediately if we don't want to wait for a reboot
 ```
+sudo chmod +x /etc/init.d/grub-btrfsd
 sudo rc-update add grub-btrfsd default
 sudo rc-service grub-btrfsd start
 ```
@@ -171,7 +173,34 @@ I use [input-remapper](https://github.com/sezanzeb/input-remapper) to perform si
 sudo yay -S input-remapper-git
 ```
 
-It comes with a `systemd` service to auto-start the macros at boot, and it obviously won't work with OpenRC. However, I don't need it.
+It comes with a `systemd` service to auto-start the macros at boot, and it obviously won't work with OpenRC. Without the daemon, the `input-remapper-control` terminal command will not work. 
+
+So to make it work in OpenRC
+```
+sudo nano /etc/init.d/input-remapper-openrc
+```
+```
+#!/sbin/openrc-run
+# Copyright 1999-2020 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Daemon for key-mapper-service"
+start() {
+    ebegin "key-mapper service"
+    start-stop-daemon --background --start --exec /usr/bin/key-mapper-service \
+    --make-pidfile --pidfile /run/key-mapper.pid
+    eend $?
+}
+#notice the bash like escape to use newlines
+depend() {
+	need dbus
+}
+```
+```
+sudo chmod +x /etc/init.d/input-remapper-openrc
+sudo rc-update add input-remapper-openrc default
+sudo rc-service input-remapper-openrc start
+```
 
 ### Installing LACT
 
