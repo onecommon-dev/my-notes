@@ -356,6 +356,14 @@ After installing gadgets, we should be able to add them to the desktop using KDE
 
 ## Tips, tricks and fixing common issues
 
+### Turn on power profile support for laptops
+
+Artix comes with `power-profiles-daemon` and `power-profiles-daemon-openrc` packages installed by default, but the daemon itself isn't run by default. So on laptops, do this to enable the service:
+```
+sudo rc-update add power-profiles-daemon
+sudo rc-service power-profiles-daemon start
+```
+
 ### Wrong fs type, bad option, bad superblock
 
 Occasionally, Dolphin might show this error when trying to mount a media device. Most of the time, this is caused by a dirty flag being unset when the machine was forced shutdown. It happened to me after I needed to force shutdown due to an issue with my GPU (not an issue with Artix itself).
