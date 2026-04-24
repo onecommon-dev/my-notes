@@ -363,6 +363,7 @@ Artix comes with `power-profiles-daemon` and `power-profiles-daemon-openrc` pack
 sudo rc-update add power-profiles-daemon
 sudo rc-service power-profiles-daemon start
 ```
+After turning this on, for my Thinkpad L14 gen 6, I was able to change the power profile to one of Power Saving, Balanced and Performance.
 
 ### Wrong fs type, bad option, bad superblock
 
