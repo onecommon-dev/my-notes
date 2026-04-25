@@ -414,3 +414,11 @@ nano ~/.config/mpv/input.conf
 r cycle_values video-rotate "90" "180" "270" "0"
 ```
 This would make the `r` key rotate the video 90 degrees at a time.
+
+### Screenshots
+
+By default Artix doesn't come with any screenshot tools. Since we use KDE, we can use KDE's tool called `spectacle`
+```
+sudo pacman -S spectacle
+```
+Admittedly this comes with a bunch of other dependencies, but it should be all part of the KDE ecosystem, so I think it will be fine. `spectacle` itself is pretty awesome.
