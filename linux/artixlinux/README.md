@@ -46,12 +46,28 @@ sudo pacman -Syu
 ```
 Reboot if needed to make sure we're not broken already.
 
-To automate this process next time, we can create a script that will automatically create a timeshift snapshot, update all pacman and AUR packages as well as flatpaks too
+To automate this process, we can use [topgrade](https://github.com/topgrade-rs/topgrade), which is a convenient program that automates all sorts of package manager updating processes. For Arch/Artix, we can install it with
+```
+yay -S topgrade-bin
+```
+Then to update our system as well as flatpaks, we can simply run
+```
+topgrade -c
+```
+The `-c` is to tell `topgrade` to clean up afterwards.
+
+Of course, we should remember to create a btrfs snapshot before starting the update. To automate that, we can create a script like so
+```
+sudo timeshift --create --comments "Pre-update backup" --scripted
+topgrade -c
+```
+
+Alternatively, we can create a script that will automatically create a timeshift snapshot, update all pacman and AUR packages as well as flatpaks too, without using `topgrade`, we will just have to manually specify the commands. 
 ```
 sudo timeshift --create --comments "Pre-update backup" --scripted   
-sudo yay
-sudo yay -Yc
-sudo yay -Scc
+yay
+yay -Yc
+yay -Scc
 sudo flatpak update
 ```
 Obviously this will require `timeshift`, `yay` and `flatpak` to already be installed.
