@@ -432,6 +432,10 @@ Edit `/etc/fstab` to change the `/var/log` mount to tmpfs, since other applicati
 # UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /var/log       btrfs   subvol=/@log,defaults,compress=zstd:1 0 0
 tmpfs                                     /var/log       tmpfs   defaults,noatime,mode=0755,size=200M 0 0
 ```
+Clean the current logs
+```
+sudo rm -rf /var/log/*
+```
 Then force unmount and remount it
 ```
 sudo umount -l /var/log
