@@ -441,6 +441,7 @@ UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /              btrfs   subvol=/@,defau
 UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /home          btrfs   subvol=/@home,defaults,noatime,compress=zstd:1,space_cache=v2,commit=120 0 0
 UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /var/cache     btrfs   subvol=/@cache,defaults,noatime,compress=zstd:1,space_cache=v2,commit=120 0 0
 ```
+Note that `space_cache=v2` only applies to btrfs. If you are using ext4, don't add it.
 
 Clean the current logs
 ```
