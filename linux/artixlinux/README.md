@@ -422,3 +422,24 @@ By default Artix doesn't come with any screenshot tools. Since we use KDE, we ca
 sudo pacman -S spectacle
 ```
 Admittedly this comes with a bunch of other dependencies, but it should be all part of the KDE ecosystem, so I think it will be fine. `spectacle` itself is pretty awesome.
+
+### Reduce SSD wear
+
+By default, Artix doesn't come with any logging service enabled, so as long as we don't enable one, there shouldn't be any logs written to disk. There are a few things we can do to further reduce SSD wear.
+
+Edit `/etc/fstab` to change the `/var/log` mount to tmpfs, since other applications might still log there
+```
+# UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /var/log       btrfs   subvol=/@log,defaults,compress=zstd:1 0 0
+tmpfs                                     /var/log       tmpfs   defaults,noatime,mode=0755,size=200M 0 0
+```
+Then force unmount and remount it
+```
+sudo umount -l /var/log
+sudo mount /var/log
+```
+
+The browser is usually doing a lot of disk writes to its cache, so we can stick the cache to `/tmp`, which is mounted as tmpfs on Artix by default. I use Brave, so I just need to edit its shortcut to append this just before the `%U`, like so
+```
+--disk-cache-dir=/tmp/brave-cache --disk-cache-size=104857600 %U
+```
+This will set the cache to RAM and with a size limit of 100MB. If you have way too much RAM like I have, you can increase the size to 200MB by setting it to `209715200` or more.
