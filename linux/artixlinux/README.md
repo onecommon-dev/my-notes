@@ -427,9 +427,8 @@ Admittedly this comes with a bunch of other dependencies, but it should be all p
 
 By default, Artix doesn't come with any logging service enabled, so as long as we don't enable one, there shouldn't be any logs written to disk. There are a few things we can do to further reduce SSD wear.
 
-Edit `/etc/fstab` to change the `/var/log` mount to tmpfs, since other applications might still log there
+Edit `/etc/fstab` to change the `/var/log` mount to tmpfs, since other applications might still log there. Comment out the existing line that mounts `/var/log`, then add
 ```
-# UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /var/log       btrfs   subvol=/@log,defaults,compress=zstd:1 0 0
 tmpfs                                     /var/log       tmpfs   defaults,noatime,mode=0755,size=200M 0 0
 ```
 Clean the current logs
