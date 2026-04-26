@@ -60,7 +60,9 @@ Of course, we should remember to create a btrfs snapshot before starting the upd
 ```
 sudo timeshift --create --comments "Pre-update backup" --scripted
 topgrade -c
+sudo fstrim -av
 ```
+I have my weekly `fstrim` done here so that I don't need to setup a scheduler.
 
 Alternatively, we can create a script that will automatically create a timeshift snapshot, update all pacman and AUR packages as well as flatpaks too, without using `topgrade`, we will just have to manually specify the commands. 
 ```
@@ -451,6 +453,15 @@ Then force unmount and remount it
 ```
 sudo umount -l /var/log
 sudo mount /var/log
+```
+
+We should run `fstrim` once a week to trim the SSD, since that is the Linux community's preferred method of SSD trimming. We have the option to use `discard`, which continuously trims the SSD as data is written/deleted, but that depends on how `discard` is implemented by the SSD manufacturer. There were many cases when the SSD itself didn't perform this command well, resulting in much reduced performance. Meanwhile, running `fstrim` once a week provides the same benefits with almost no performance hit.
+
+Artix + OpenRC doesn't enable the `fstrim.timer` by default since it is a systemD integration. We could use `cronie` or `dcron`, but I prefer a simpler solution. Since I always update my system once a week on Saturdays, might as well add this command to that update script.
+```
+sudo timeshift --create --comments "Pre-update backup" --scripted
+topgrade -c
+sudo fstrim -av
 ```
 
 The browser is usually doing a lot of disk writes to its cache, so we can stick the cache to `/tmp`, which is mounted as tmpfs on Artix by default. I use Brave, so I just need to edit its shortcut to append this just before the `%U`, like so
