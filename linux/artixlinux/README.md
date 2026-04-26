@@ -431,7 +431,11 @@ Edit `/etc/fstab` to change the `/var/log` mount to tmpfs, since other applicati
 ```
 tmpfs                                     /var/log       tmpfs   defaults,noatime,mode=0755,size=200M 0 0
 ```
-While we're in `/etc/fstab`, might as well modify the existing entries to add `noatime,space_cache=v2,commit=120` to reduce SSD writes as well, like so
+While we're in `/etc/fstab`, might as well modify the existing entries to add the below to reduce SSD writes as well
+```
+noatime,space_cache=v2,commit=120
+```
+For example:
 ```
 UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /              btrfs   subvol=/@,defaults,noatime,compress=zstd:1,space_cache=v2,commit=120 0 0
 UUID=b2afd5ad-6c6f-40a2-a489-909e4019c017 /home          btrfs   subvol=/@home,defaults,noatime,compress=zstd:1,space_cache=v2,commit=120 0 0
