@@ -166,7 +166,7 @@ sudo rc-service grub-btrfsd start
 We should run the below commands manually once initially to setup `grub` with any snapshots that we created with `timeshift` prior to installing `grub-btrfs`
 ```
 sudo /etc/grub.d/41_snapshots-btrfs
-grub-mkconfig -o /boot/grub/grub.cfg
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ### Installing Steam
