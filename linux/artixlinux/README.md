@@ -391,7 +391,7 @@ To fix, first identify the device's name with `lsblk`. Or use Dolphin as it tell
 
 Then, if the drive is NTFS, run this command to unset the dirty flag
 ```
-ntfsfix -d /dev/sdd1
+ntfsfix -d /dev/sdb2
 ```
 For exfat, run this command to scan for errors and unset the dirty flag
 ```
