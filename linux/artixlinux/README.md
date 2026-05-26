@@ -481,9 +481,9 @@ To resolve that:
 - While the drives are still mounted, find out their UUIDs with the `sudo blkid` command
 - Manually craft `/etc/fstab` entries. For example, mine looks like this
 ```
-UUID=04D6C700D6C6F14A  /mnt/Programs  ntfs3  rw,noatime,uid=1000,gid=1000,umask=022,windows_names,discard,nofail,nodev,nosuid  0  0
-UUID=01D2BA90DA071580  /mnt/Data  ntfs3  rw,noatime,uid=1000,gid=1000,umask=022,windows_names,discard,nofail,nodev,nosuid  0  0
-UUID=8A9E6A629E6A4733  /mnt/Work  ntfs3  rw,noatime,uid=1000,gid=1000,umask=022,windows_names,discard,nofail,nodev,nosuid  0  0
+UUID=04D6C700D6C6F14A  /mnt/Programs  ntfs3  rw,noatime,uid=1000,gid=1000,umask=022,windows_names,discard,nofail,nodev,nosuid,recover  0  0
+UUID=01D2BA90DA071580  /mnt/Data  ntfs3  rw,noatime,uid=1000,gid=1000,umask=022,windows_names,discard,nofail,nodev,nosuid,recover  0  0
+UUID=8A9E6A629E6A4733  /mnt/Work  ntfs3  rw,noatime,uid=1000,gid=1000,umask=022,windows_names,discard,nofail,nodev,nosuid,recover  0  0
 ```
 - Manually create the folders on `/mnt` with `mkdir`
 - Unmount those drives, then remount them with `sudo mount -a` to check if they work.
