@@ -467,8 +467,7 @@ Regenerate initramfs
 ```
 sudo mkinitcpio -P
 ```
-Reboot
-Verify that the device is now loaded with vfio
+Reboot and verify that the device is now loaded with vfio
 ```
 lscpi -nnk
 ```
