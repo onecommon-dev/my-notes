@@ -372,6 +372,107 @@ sudo ./install.sh
 
 After installing gadgets, we should be able to add them to the desktop using KDE's Add or Manage Widgets menu (by right-clicking the taskbar)
 
+## Setting up QEMU/libvirt and PCI passthrough
+
+### Installing QEMU/libvirt
+
+First install the required packages
+```
+sudo pacman -S \
+    qemu-full \
+    virt-manager \
+	virt-viewer \
+    libvirt-openrc \
+    ovmf \
+    dnsmasq
+```
+Add my user to the required groups
+```
+sudo usermod -aG libvirt $USER
+sudo usermod -aG kvm $USER
+```
+Edit
+```
+sudo nano /etc/libvirt/libvirtd.conf
+```
+Uncomment
+```
+unix_sock_group = "libvirt"
+unix_sock_rw_perms = "0770"
+```
+Then
+```
+sudo nano /etc/libvirt/qemu.conf
+```
+Set
+```
+user = "yourusername"
+group = "libvirt"
+```
+Set `libvirtd` to start
+```
+sudo rc-update add libvirtd default
+sudo rc-service libvirtd start
+```
+Add IOMMU to grub
+```
+sudo nano /etc/default/grub
+```
+And set the command arguments line for Intel
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
+```
+Or for AMD
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on iommu=pt"
+```
+Regenerate grub
+```
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+Add vfio modules
+```
+sudo nano /etc/mkinitcpio.conf
+```
+```
+MODULES=(vfio_pci vfio vfio_iommu_type1)
+```
+Regenerate initramfs
+```
+sudo mkinitcpio -P
+```
+Reboot
+
+### PCI passthrough
+
+Identify devices
+```
+lspci -nn
+```
+Look at the list and find the devices you want to isolate. For example
+```
+0c:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Turks XT [Radeon HD 6670/7670] [1002:6758]
+0c:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Turks HDMI Audio [Radeon HD 6500/6600 / 6700M Series] [1002:aa90]
+```
+Add these ids to `/etc/modprobe.d/vfio.conf`
+```
+sudo nano /etc/modprobe.d/vfio.conf
+```
+```                                                                     
+options vfio-pci ids=1002:6758,1002:aa90
+
+# ATI Radeon HD 6670/7670 - 1002:6758,1002:aa90
+```
+Regenerate initramfs
+```
+sudo mkinitcpio -P
+```
+Reboot
+Verify that the device is now loaded with vfio
+```
+lscpi -nnk
+```
+
 ## Tips, tricks and fixing common issues
 
 ### Turn on power profile support for laptops
