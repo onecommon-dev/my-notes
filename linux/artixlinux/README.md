@@ -169,6 +169,18 @@ sudo /etc/grub.d/41_snapshots-btrfs
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+### Installing ufw
+
+Artix does not come with a firewall by default, so we should add one for minimum security. The easiest one seems to be `ufw`.
+```
+sudo pacman -S ufw ufw-openrc
+sudo rc-update add ufw
+sudo ufw enable
+sudo ufw status
+```
+You may need to reboot before the `sudo ufw enable` command will work.
+
+
 ### Installing Steam
 
 Since Steam still depends on `multilib` for 32 bit games at the point of writing this article, we'll need to enable it in our sources. [This Arch wiki article](https://wiki.archlinux.org/title/Steam) talks about it. Once this dependency is removed from Steam, we can remove `multilib`.
