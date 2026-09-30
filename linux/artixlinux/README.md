@@ -618,3 +618,16 @@ This will run after the drives are mounted and make sure my programs still work.
 ```
 sudo rc-update add localmount default
 ```
+### Merge video files without reencoding
+Sometimes we just want to merge video files without reencoding. Using something like kdenlive or DaVinci Resolve will reencode the video and takes a lot of time.
+
+To do this, we can use `ffmpeg`.
+
+Create a text file (list.txt) with the paths:
+```
+file 'video1.mp4'
+file 'video2.mp4'
+```
+
+Run the command:
+```ffmpeg -f concat -safe 0 -i list.txt -c copy output.mp4```
