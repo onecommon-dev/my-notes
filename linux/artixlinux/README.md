@@ -630,4 +630,6 @@ file 'video2.mp4'
 ```
 
 Run the command:
-```ffmpeg -f concat -safe 0 -i list.txt -c copy output.mp4```
+```
+ffmpeg -f concat -safe 0 -i list.txt -c copy output.mp4
+```
